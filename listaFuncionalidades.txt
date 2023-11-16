@@ -1,0 +1,10 @@
+0.
+    Que siempre haya como minimo 1 de cada elemento/condicion, es decir, 1 mayuscula, 1 minuscula, etc
+1.
+    Que genere contraseñas con letras mayusculas y minusculas en base una longitud
+2.
+    Que puedas cambiar esa longitud
+3.
+    Que puedas decir de añadir numeros
+4.
+    Que puedas decir de añadir caracteres especiales y que se añadan
