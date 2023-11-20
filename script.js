@@ -31,14 +31,6 @@ window.addEventListener("load", () => {
             })
     }
 
-    // showPasswordButton.addEventListener("mouseover", () => {
-    //     passwordInput.type = "text"
-    // })
-
-    // showPasswordButton.addEventListener("mouseout", () => {
-    //     passwordInput.type = "password"
-    // })
-
     showPasswordButton.addEventListener("click", () => {
         passwordInput.type = (passwordInput.type == "password" ? "text" : "password")
         showPasswordButton.querySelector("i").classList.toggle("fa-eye")
