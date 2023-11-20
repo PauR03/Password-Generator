@@ -4,62 +4,90 @@ const numbers = "0123456789"
 const charSpe = "!@#$%^&*()-_=+[]{}|;:'\",.<>/?`~"
 
 const ALLOWED_CHARACTERS = {
-    lowers: true,
-    uppers: true,
-    numbers: true,
-    specials: true
+    numbers: false,
+    specials: false
 }
+
+var len = 4
 
 window.addEventListener("load", () => {
     const button = document.getElementById("copyButton")
     const showPasswordButton = document.getElementById("showPassword")
     const passwordInput = document.getElementById("passwordGenerated")
+    const range = document.getElementById("passwordLen")
+    const reload = document.getElementById("reloadPassword")
+    const addNumbersCheck = document.getElementById("addNumbers")
+    const addSpecialsCheck = document.getElementById("addSpecials")
 
     button.onclick = () => {
         const passwordText = passwordInput.value
 
         navigator.clipboard.writeText(passwordText)
             .then(() => {
-                console.log('Texto copiado al portapapeles')
+                alert('Texto copiado al portapapeles')
             })
             .catch(err => {
                 console.error('Error al copiar al portapapeles:', err)
             })
     }
 
-    showPasswordButton.addEventListener("mouseover", () => {
-        passwordInput.type = "text"
+    // showPasswordButton.addEventListener("mouseover", () => {
+    //     passwordInput.type = "text"
+    // })
+
+    // showPasswordButton.addEventListener("mouseout", () => {
+    //     passwordInput.type = "password"
+    // })
+
+    showPasswordButton.addEventListener("click", () => {
+        passwordInput.type = (passwordInput.type == "password" ? "text" : "password")
+        showPasswordButton.querySelector("i").classList.toggle("fa-eye")
+        showPasswordButton.querySelector("i").classList.toggle("fa-eye-slash")
     })
 
-    showPasswordButton.addEventListener("mouseout", () => {
-        passwordInput.type = "password"
+    reload.addEventListener("click", () => {
+        createPassword(passwordInput)
     })
 
-    console.log('a'.charCodeAt(0))
+    addNumbersCheck.addEventListener("change", () => {
+        ALLOWED_CHARACTERS.numbers = (ALLOWED_CHARACTERS.numbers ? false : true)
+        createPassword(passwordInput)
+    })
 
-    // passwordInput.value(randomizedPassword())
+    addSpecialsCheck.addEventListener("change", () => {
+        ALLOWED_CHARACTERS.specials = (ALLOWED_CHARACTERS.specials ? false : true)
+        createPassword(passwordInput)
+    })
 
+    range.addEventListener("input", () => {
+        document.querySelector("label").innerHTML = range.value
+        len = range.value
+        createPassword(passwordInput)
+    })
 
-    console.log(shuffle("hO0."))
-    console.log(randomCharLow(), randomCharUpp(), randomNumber(), randomCharSpe())
-    randomizedPassword()
+    createPassword(passwordInput)
 })
 
+function createPassword(passwordInput) {
+    passwordInput.value = randomizedPassword()
+}
+
 function randomizedPassword() {
-    let len = 10
     let psw = ""
     let check
+    let tempLen = len
 
-    for (len; len; len--) {
-        if (len == 4) {
+    for (tempLen; tempLen; tempLen--) {
+        if (tempLen <= 4) {
             check = checkRequeriments(psw)
-            continue
+            if (check[0]) {
+                psw += check[1]
+                psw = shuffle(psw)
+                continue
+            }
         }
-        else {
-            psw += selectRandomChar()
-        }
+        psw += selectRandomChar()
         psw = shuffle(psw)
-        console.log(len, psw)
     }
     psw = shuffle(psw)
     return psw
@@ -82,15 +110,31 @@ function randomCharSpe() {
 }
 
 function selectRandomChar() {
-    let randomChoice = Math.floor(Math.random() * 4) + 1
-    if (randomChoice == 1) return randomCharLow()
-    if (randomChoice == 2) return randomCharUpp()
-    if (randomChoice == 3) return randomNumber()
-    if (randomChoice == 4) return randomCharSpe()
-    return 0
+    while (true) {
+        let randomChoice = Math.floor(Math.random() * 4) + 1
+        if (randomChoice == 1) return randomCharLow()
+        if (randomChoice == 2) return randomCharUpp()
+        if (randomChoice == 3 && ALLOWED_CHARACTERS.numbers) return randomNumber()
+        if (randomChoice == 4 && ALLOWED_CHARACTERS.specials) return randomCharSpe()
+    }
 }
 
 function checkRequeriments(string) {
+    let hasLow = false, hasUpp = false, hasNum = false, hasSpe = false
+
+    for (let i = 0; i < string.length; i++) {
+        if (charLow.includes(string[i])) hasLow = true
+        else if (charUpp.includes(string[i])) hasUpp = true
+        else if (numbers.includes(string[i])) hasNum = true
+        else if (charSpe.includes(string[i])) hasSpe = true
+    }
+
+    if (!hasLow) return [true, randomCharLow()]
+    if (!hasUpp) return [true, randomCharUpp()]
+    if (!hasNum && ALLOWED_CHARACTERS.numbers) return [true, randomNumber()]
+    if (!hasSpe && ALLOWED_CHARACTERS.specials) return [true, randomCharSpe()]
+
+    return [false]
 }
 
 function shuffle(inputString) {

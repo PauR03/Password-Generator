@@ -4,10 +4,68 @@ body {
     padding: 0;
 }
 
+body {
+    background-color: #9b9b9b;
+    font-family: 'Consolas';
+}
+
 main {
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+button {
+    cursor: pointer;
+}
+
+div.passwordSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.inputContainer {
+    position: relative;
+}
+
+input#passwordGenerated {
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 0 0 0 2%;
+}
+
+button#showPassword {
+    position: absolute;
+    top: 25%;
+    right: 0;
+    background: none;
+    border: none;
+}
+
+div.buttonContainer button {
+    border: none;
+    background: none;
+    margin: 20px;
+    transition: background-color 0.3ms;
+}
+
+div.rangeContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+div.rangeContainer input {
+    width: 90%;
+}
+
+div.checkboxContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
 }

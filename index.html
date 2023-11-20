@@ -8,13 +8,41 @@
 
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <main>
-        <input type="password" id="passwordGenerated">
-        <button id="showPassword">Show</button>
-        <button id="copyButton">Copiar</button>
+        <article>
+            <div class="passwordSection">
+                <div class="inputContainer">
+                    <input type="password" id="passwordGenerated" readonly>
+                    <button id="showPassword"><i class="fa-solid fa-eye-slash"></i></button>
+                </div>
+
+                <div class="buttonContainer">
+                    <button id="copyButton"><i class="fa-regular fa-copy fa-2xl"></i></button>
+                    <button id="reloadPassword"><i class="fa-solid fa-repeat fa-2xl"></i></button>
+                </div>
+            </div>
+            <div class="rangeContainer">
+                <label for="passwordLen">4</label>
+                <input type="range" id="passwordLen" min="4" max="40" value="4">
+            </div>
+            <div class="checkboxContainer">
+                <label for="addNumbers">Add numbers</label>
+                <input type="checkbox" id="addNumbers">
+            </div>
+            <div class="checkboxContainer">
+                <label for="addSpecials">Add specials characters</label>
+                <input type="checkbox" id="addSpecials">
+            </div>
+
+        </article>
+
     </main>
 </body>
 
