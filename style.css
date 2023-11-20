@@ -17,6 +17,13 @@ main {
     align-items: center;
 }
 
+article {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    background: #b2e2f2;
+}
+
 button {
     cursor: pointer;
 }
